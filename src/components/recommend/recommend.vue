@@ -1,12 +1,51 @@
 <template>
   <div class="recommend" ref="recommend">
-    推荐奥术大师多
+    <div class="recommend-content">
+      <div v-if="recommends.length"  class="slider-wrapper">
+        <slider>
+          <div v-for="(item, index) in recommends" :key="index">
+            <a :href="item.linkUrl">
+              <img :src="item.picUrl" alt="">
+            </a>
+          </div>
+        </slider>
+      </div>
+      <div class="recommend-list">
+        <h1>热门歌单推荐</h1>
+        <ul>
+
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-
+  import Slider from 'base/slider/slider'
+  import {getRecommend} from 'api/recommend'
+  import {ERR_OK} from 'api/config'
   export default {
+    components: {
+      Slider
+    },
+    data() {
+      return {
+        recommends: []
+      }
+    },
+    methods: {
+      _getRecommend() {
+        getRecommend().then((res) => {
+          if(res.code === ERR_OK) {
+            console.log('轮播数据：',res.data)
+            this.recommends = res.data.slider
+          }
+        })
+      }
+    },
+    created() {
+      this._getRecommend()
+    }
   }
 </script>
 
