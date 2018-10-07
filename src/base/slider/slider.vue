@@ -27,7 +27,7 @@
       },
       interval: {
         type: Number,
-        default: 1000
+        default: 4000
       }
     },
     data() {
@@ -61,7 +61,7 @@
       }
     },
     deactivated() {
-      clearTimeout(this.timer)
+      clearTimeout(this.timer)  //销毁计时器
     },
     beforeDestroy() {
       clearTimeout(this.timer)

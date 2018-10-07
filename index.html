@@ -8,10 +8,12 @@
   <body>
     <div id="app"></div>
     <!-- built files will be auto injected -->
-    
+
     <!-- 
       遇到的坑：
-        1，拿到轮播图的异步的过程，应该等获取完毕图片数据后，再去渲染slider里面的数据
+        1,拿到轮播图的异步的过程，应该等获取完毕图片数据后，再去渲染slider里面的数据
+        2,betterScroll 滚动高度不够（拿数据的异步的，应该拿完数据后再刷新scroll组件，绑定data，然后watch这个data）
+        3,使用vue-lazyLoad进行首页数据的懒加载
     -->
   </body>
 </html>
