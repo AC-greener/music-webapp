@@ -16,7 +16,7 @@
           <ul>
             <li @click="selectItem(item)" v-for="(item, index) in discList" class="item" :key="index">
                 <div class="icon">
-                  <img width="60" height="60" :src="item.imgurl">
+                  <img width="60" height="60" v-lazy="item.imgurl">
                 </div>
                 <div class="text">
                   <h2 class="name" v-html="item.creator.name"></h2>
@@ -26,6 +26,9 @@
             </ul>
         </div>
       </div>
+      <div class="loading-container" v-show="!discList.length">
+        <loading></loading>
+      </div>
     </scroll>
   </div>
 </template>
@@ -33,12 +36,14 @@
 <script type="text/ecmascript-6">
   import Slider from 'base/slider/slider'
   import Scroll from 'base/scroll/scroll'
+  import Loading from 'base/loading/loading'
   import {getRecommend, getDiscList} from 'api/recommend'
   import {ERR_OK} from 'api/config'
   export default {
     components: {
       Slider,
-      Scroll
+      Scroll,
+      Loading
     },
     data() {
       return {
@@ -82,7 +87,9 @@
     },
     created() {
       this._getRecommend()
-      this._getDiscList()
+      setTimeout(() => {
+        this._getDiscList()
+      }, 1000)
     }
   }
 </script>
